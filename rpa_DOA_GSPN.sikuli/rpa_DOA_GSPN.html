@@ -1,0 +1,262 @@
+
+<html>
+   <head>
+      <style type="text/css">
+         .sikuli-code {
+            font-size: 20px;
+            font-family: "Osaka-mono", Monospace;
+            line-height: 1.5em;
+            display:table-cell;
+            white-space: pre-wrap;       /* css-3 */
+            white-space: -moz-pre-wrap !important;  /* Mozilla, since 1999 */
+            white-space: -pre-wrap;      /* Opera 4-6 */
+            white-space: -o-pre-wrap;    /* Opera 7 */
+            word-wrap: break-word;       /* Internet Explorer 5.5+ */
+            width: 99%;   /* remove horizontal scroll-bar when viewing in IE7 */
+         }
+         .sikuli-code img {
+            vertical-align: middle;
+            margin: 2px;
+            border: 1px solid #ccc;
+            padding: 2px;
+            -moz-border-radius: 5px;
+            -webkit-border-radius: 5px;
+            -moz-box-shadow: 1px 1px 1px gray;
+            -webkit-box-shadow: 1px 1px 2px gray;
+         }
+         .kw {
+            color: blue;
+         }
+         .skw {
+            color: rgb(63, 127, 127);
+         }
+
+         .str {
+            color: rgb(128, 0, 0);
+         }
+
+         .dig {
+            color: rgb(128, 64, 0);
+         }
+
+         .cmt {
+            color: rgb(200, 0, 200);
+         }
+
+         h2 {
+            display: inline;
+            font-weight: normal;
+         }
+
+         .info {
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+            margin-bottom: 20px;
+            display: none;
+         }
+
+         a {
+            color: #9D2900;
+         }
+
+         body {
+            font-family: "Trebuchet MS", Arial, Sans-Serif;
+         }
+
+      </style>
+   </head>
+<body>
+<div class="info">
+<h2>rpa_DOA_GSPN.sikuli</h2> <a href="rpa_DOA_GSPN.zip">(Download this script)</a>
+</div>
+<pre class="sikuli-code">
+load(<span class="str">"mssql-jdbc-7.0.0.jre8.jar"</span>)
+<span class="kw">from</span> com.ziclix.python.sql <span class="kw">import</span> zxJDBC
+<span class="kw">from</span> datetime <span class="kw">import</span> datetime
+<span class="kw">import</span> sys
+<span class="kw">import</span> shutil
+<span class="kw">import</span> os
+<span class="kw">import</span> glob
+
+user_gspn = <span class="str">"OCUEVAAP2019"</span>
+pass_gspn = <span class="str">"Servicio2021#"</span>
+link_gspn = <span class="str">"https://gspn6.samsungcsportal.com/"</span>
+delete_files = <span class="str">r'C:\evidenciasPDF\*'</span>
+
+conn = None
+d, u, p, v = <span class="str">"jdbc:sqlserver://10.120.25.80"</span>, <span class="str">"ENVIRONMENT_PRD"</span>, <span class="str">"@env-PRD-2015$#"</span>, <span class="str">"com.microsoft.sqlserver.jdbc.SQLServerDriver"</span>
+
+<span class="kw">print</span>(<span class="str">"abrir Firefox"</span>)
+App.open(<span class="str">"C:\\Program Files\\Mozilla Firefox\\firefox.exe"</span>)
+<span class="skw">sleep</span>(<span class="dig">25</span>)
+<span class="skw">type</span>(Key.ENTER)
+
+<span class="kw">print</span>(<span class="str">"Nos logueamos"</span>)
+<span class="kw">if</span> exists (<img src="1574978185172.png" />,<span class="dig">10</span>):
+    <span class="skw">sleep</span>(<span class="dig">3</span>)
+    <span class="skw">click</span>(<img src="1574977708063.png" />)
+    <span class="skw">sleep</span>(<span class="dig">5</span>)
+paste(Pattern(<img src="1574978356421.png" />).targetOffset(<span class="dig">42</span>,<span class="dig">4</span>), user_gspn)
+<span class="skw">sleep</span>(<span class="dig">2</span>)
+<span class="skw">type</span>(Key.TAB)
+<span class="skw">sleep</span>(<span class="dig">2</span>)
+paste(pass_gspn)
+<span class="skw">sleep</span>(<span class="dig">2</span>)
+<span class="skw">type</span>(Key.ENTER)
+<span class="skw">sleep</span>(<span class="dig">25</span>)
+
+<span class="kw">if</span> exists(Pattern(<img src="1574978589935.png" />).targetOffset(-<span class="dig">44</span>,<span class="dig">0</span>),<span class="dig">15</span>):
+    <span class="skw">sleep</span>(<span class="dig">2</span>)
+    <span class="skw">click</span>(Pattern(<img src="1574978589935.png" />).targetOffset(-<span class="dig">44</span>,<span class="dig">0</span>))
+    <span class="skw">sleep</span>(<span class="dig">2</span>)
+
+<span class="kw">if</span> exists(<img src="1574978793877.png" />,<span class="dig">15</span>):
+    <span class="skw">sleep</span>(<span class="dig">2</span>)
+    <span class="skw">click</span>(Pattern(<img src="1574978793877.png" />).targetOffset(-<span class="dig">44</span>,<span class="dig">4</span>))
+    <span class="skw">sleep</span>(<span class="dig">2</span>)
+
+<span class="skw">wait</span>(<img src="1574978876726.png" />,<span class="dig">300</span>)
+<span class="skw">sleep</span>(<span class="dig">3</span>)
+
+<span class="kw">print</span>(<span class="str">"ingresar a creacion de ticket TA"</span>)
+<span class="skw">click</span>(<img src="1579542445293.png" />)
+<span class="skw">sleep</span>(<span class="dig">25</span>)
+<span class="skw">wait</span>(Pattern(<img src="1579556987046.png" />).targetOffset(-<span class="dig">84</span>,<span class="dig">0</span>),<span class="dig">240</span>)
+<span class="skw">sleep</span>(<span class="dig">3</span>)
+<span class="skw">click</span>(Pattern(<img src="1579556987046.png" />).targetOffset(-<span class="dig">84</span>,<span class="dig">0</span>))
+<span class="skw">sleep</span>(<span class="dig">3</span>)
+<span class="skw">click</span>(Pattern(<img src="1579548952553.png" />).targetOffset(<span class="dig">14</span>,-<span class="dig">7</span>))
+<span class="skw">sleep</span>(<span class="dig">10</span>)
+
+
+<span class="kw">try</span>:
+    conn = zxJDBC.connect(d, u, p, v)
+    cursor = conn.cursor()
+    cursor.execute(<span class="str">"use AnovoASR EXEC usp_ObtenerOrdenesDOAClaimsGSPN"</span>)
+
+    <span class="kw">for</span> gspn,ano,ost <span class="kw">in</span> cursor.fetchall():
+        <span class="skw">sleep</span>(<span class="dig">2</span>)
+        <span class="skw">type</span>(Key.ENTER)
+        <span class="skw">sleep</span>(<span class="dig">5</span>)
+        <span class="skw">click</span>(Pattern(<img src="1579565597862.png" />).targetOffset(<span class="dig">12</span>,-<span class="dig">5</span>))
+        <span class="kw">print</span>(<span class="str">"abrir modulo"</span>)
+        <span class="skw">sleep</span>(<span class="dig">8</span>)
+        <span class="skw">click</span>(Pattern(<img src="1582323159639.png" />).targetOffset(<span class="dig">121</span>,<span class="dig">1</span>))
+        <span class="skw">sleep</span>(<span class="dig">2</span>)
+        <span class="skw">type</span>(Key.DOWN*<span class="dig">3</span>)
+        <span class="skw">sleep</span>(<span class="dig">2</span>)
+        <span class="skw">type</span>(Key.ENTER)
+        <span class="kw">print</span>(<span class="str">"buscar por cod gspn"</span>)
+        <span class="skw">sleep</span>(<span class="dig">5</span>)
+        paste(Pattern(<img src="1579565792850.png" />).targetOffset(<span class="dig">91</span>,-<span class="dig">11</span>),ost)
+        <span class="skw">sleep</span>(<span class="dig">3</span>)
+        <span class="skw">click</span>(Pattern(<img src="1579565756163.png" />).targetOffset(<span class="dig">11</span>,<span class="dig">1</span>))
+        <span class="skw">sleep</span>(<span class="dig">10</span>)
+
+        <span class="kw">print</span>(<span class="str">"ingresar a ticket"</span>)
+        <span class="kw">if</span> exists(Pattern(<img src="1579552575091.png" />).targetOffset(<span class="dig">1</span>,<span class="dig">3</span>),<span class="dig">5</span>):
+            <span class="skw">sleep</span>(<span class="dig">3</span>)
+            <span class="skw">click</span>(Pattern(<img src="1579552575091.png" />).targetOffset(<span class="dig">1</span>,<span class="dig">3</span>))
+            <span class="skw">sleep</span>(<span class="dig">20</span>)
+
+            <span class="kw">print</span>(<span class="str">"ingresar a carga pdf"</span>)
+            <span class="skw">click</span>(Pattern(<img src="1582324222468.png" />).targetOffset(<span class="dig">36</span>,<span class="dig">2</span>))
+            <span class="skw">sleep</span>(<span class="dig">5</span>)
+            <span class="skw">click</span>(Pattern(<img src="1582324298482.png" />).targetOffset(<span class="dig">100</span>,<span class="dig">1</span>))
+            <span class="skw">sleep</span>(<span class="dig">2</span>)
+            <span class="skw">click</span>(Pattern(<img src="1582324326856.png" />).targetOffset(-<span class="dig">12</span>,<span class="dig">1</span>))
+            <span class="skw">sleep</span>(<span class="dig">2</span>)
+            <span class="skw">click</span>(Pattern(<img src="1582324371778.png" />).targetOffset(-<span class="dig">8</span>,<span class="dig">1</span>))
+            <span class="skw">sleep</span>(<span class="dig">5</span>)
+
+            <span class="kw">print</span>(<span class="str">"copiar pdf a carpeta"</span>)
+            sqlfile = (<span class="str">"exec usp_claims_obtener_rutapdfdoa ?,?"</span>)
+            valfile = (ost,ano)
+            cursor.execute(sqlfile,valfile)
+            conn.commit()
+            ejecutar=cursor.fetchone()
+            rutapdf = <span class="str">''</span>.join(str(e) <span class="kw">for</span> e <span class="kw">in</span> ejecutar)
+            shutil.copy(rutapdf, <span class="str">'C:\\evidenciasPDF'</span>)
+            <span class="skw">sleep</span>(<span class="dig">5</span>)
+            <span class="skw">type</span>(<span class="str">"l"</span>,KEY_CTRL)
+            <span class="skw">sleep</span>(<span class="dig">2</span>)
+            paste(<span class="str">"C:\evidenciasPDF"</span>)
+            <span class="skw">sleep</span>(<span class="dig">2</span>)
+            <span class="skw">type</span>(Key.ENTER)
+            <span class="skw">sleep</span>(<span class="dig">3</span>)
+            <span class="skw">click</span>(Pattern(<img src="1579566233201.png" />).targetOffset(<span class="dig">0</span>,<span class="dig">2</span>))
+            <span class="skw">sleep</span>(<span class="dig">3</span>)
+            <span class="skw">type</span>(Key.ENTER)
+            <span class="skw">sleep</span>(<span class="dig">5</span>)
+            <span class="skw">type</span>(<span class="str">"w"</span>,KEY_CTRL)
+            <span class="cmt">#click(Pattern("1579566296888.png").targetOffset(-12,-1))</span>
+            <span class="skw">sleep</span>(<span class="dig">10</span>)
+            <span class="cmt">#click("1582324945423.png")</span>
+            <span class="skw">sleep</span>(<span class="dig">8</span>)
+
+            <span class="kw">print</span>(<span class="str">"Eliminar Archivos"</span>)
+            files = glob.glob(delete_files)
+            <span class="kw">for</span> f <span class="kw">in</span> files:
+                os.remove(f)
+            <span class="skw">sleep</span>(<span class="dig">2</span>)
+
+            <span class="kw">print</span>(<span class="str">"registrar sql"</span>)
+            sql = <span class="str">"use AnovoASR update Stg_DOAGSPN set EsRegistrado =? where cod_GSPN =?"</span>
+            val = (<span class="str">"1"</span>,gspn)
+            cursor.execute(sql,val)
+            conn.commit()
+            <span class="kw">print</span>(cursor.rowcount, <span class="str">"record(s) affected"</span>)
+            <span class="skw">sleep</span>(<span class="dig">2</span>)
+            <span class="cmt">#type(Key.ENTER)</span>
+
+            <span class="kw">if</span> exists(<img src="1579625705659.png" />,<span class="dig">10</span>):
+                <span class="skw">sleep</span>(<span class="dig">2</span>)
+                <span class="skw">type</span>(Key.ENTER)
+                <span class="skw">sleep</span>(<span class="dig">10</span>)
+
+            <span class="skw">sleep</span>(<span class="dig">2</span>)
+
+            <span class="kw">if</span> exists(<img src="1579624483370.png" />,<span class="dig">10</span>):
+                <span class="skw">sleep</span>(<span class="dig">2</span>)
+                <span class="skw">type</span>(Key.ENTER)
+                <span class="skw">sleep</span>(<span class="dig">10</span>)
+            <span class="kw">print</span>(<span class="str">"iniciar otra vez"</span>)
+            <span class="skw">sleep</span>(<span class="dig">2</span>)
+            <span class="skw">type</span>(Key.ENTER)
+            <span class="skw">sleep</span>(<span class="dig">5</span>)
+            <span class="skw">click</span>(Pattern(<img src="1579565597862-1.png" />).targetOffset(<span class="dig">12</span>,-<span class="dig">5</span>))
+
+        <span class="kw">else</span>:
+            <span class="skw">sleep</span>(<span class="dig">3</span>)
+            <span class="kw">print</span>(<span class="str">"No existe"</span>)
+            <span class="skw">click</span>(Pattern(<img src="1579565597862-2.png" />).targetOffset(<span class="dig">12</span>,-<span class="dig">5</span>))
+
+            sql = <span class="str">"use AnovoASR update Stg_DOAGSPN set EsRegistrado =? where cod_GSPN =?"</span>
+            val = (<span class="str">"1"</span>,gspn)
+            cursor.execute(sql,val)
+            conn.commit()
+            <span class="kw">print</span>(cursor.rowcount, <span class="str">"record(s) affected"</span>)
+            <span class="skw">sleep</span>(<span class="dig">2</span>)
+            <span class="cmt">#type(Key.ENTER)</span>
+
+
+    <span class="kw">else</span>:
+        <span class="skw">sleep</span>(<span class="dig">3</span>)
+        <span class="kw">print</span>(<span class="str">"FIN RPA"</span>)
+        <span class="skw">type</span>(<span class="str">"w"</span>,KEY_CTRL)
+        conn.close()
+
+<span class="kw">except</span>:
+    exc_type, exc_val, exc_tb = sys.exc_info()
+
+    ErrorText = <span class="str">"***** ERROR IN SCRIPTNAME = "</span> + sys.argv[<span class="dig">0</span>] + <span class="str">" *****\n"</span>
+    ErrorText += <span class="str">"Date/Time : "</span> + str(datetime.now()) + <span class="str">"\n"</span>
+    ErrorText += <span class="str">"Line Number: "</span> + str(exc_tb.tb_lineno) + <span class="str">"\n"</span>
+    ErrorText += <span class="str">"Error Type : "</span> + exc_type.__name__ + <span class="str">"\n"</span>
+    ErrorText += <span class="str">"Error Value: "</span> + exc_val.message + <span class="str">"\n"</span>
+    ErrorText += <span class="str">"***************************************************************\n\r"</span>
+    <span class="kw">print</span> ErrorText
+    conn.close()
+</pre>
+</body>
+</html>
